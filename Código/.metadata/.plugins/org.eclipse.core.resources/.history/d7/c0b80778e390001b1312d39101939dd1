@@ -1,0 +1,36 @@
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.*;
+
+public class ContaPixels {
+
+	public static void main(String[] args) {
+		new ContaPixels().carregar();
+	}
+	
+	public void carregar() {
+		
+		try {
+			
+			BufferedImage buff = ImageIO.read( getClass().getResource( "Syngenta.bmp" ) );
+			
+			Color c = null;
+			
+			for ( int i = 0; i < buff.getHeight(); i++ ) {
+				for ( int j = 0; j < buff.getWidth(); j++ ) {
+					c = new Color( buff.getRGB( i, j ) );
+					System.out.print( c + " " );
+				}
+				System.out.println();
+			}
+			
+		} catch ( IOException exc ) {
+			
+			exc.printStackTrace();
+			
+		}
+		
+	}
+
+}

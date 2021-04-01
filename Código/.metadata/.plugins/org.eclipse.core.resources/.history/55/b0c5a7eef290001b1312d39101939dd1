@@ -1,0 +1,37 @@
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.*;
+
+public class ContaPixels {
+
+	public static void main(String[] args) {
+		new ContaPixels().carregar();
+	}
+
+	public void carregar() {
+		BufferedImage imagem = null;
+
+		try {
+
+			imagem = ImageIO.read(new File("img/Syngenta.bmp")); // carrega a imagem para o código.
+
+		} catch (IOException exc) {
+			exc.printStackTrace();
+		}
+
+		Raster raster;
+		raster = imagem.getRaster(); // Capturar os Pixels da imagem.
+
+		int w = imagem.getWidth();
+		int h = imagem.getHeight();
+		int[] cores = new int[255];
+		
+		for (int x = 0; x < w; x++) {
+			for (int y = 0; y < h; y++) {
+				raster.getPixel(x, y, cores); // captura da combinação de cor do pixel
+				System.out.println("R("+cores[0]+") G("+cores[1]+") B("+cores[2]+")");
+			}
+		}
+	}
+}

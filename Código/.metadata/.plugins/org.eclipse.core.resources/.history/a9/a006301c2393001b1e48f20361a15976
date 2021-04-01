@@ -1,0 +1,54 @@
+//Código para informar a quantidade de pixels verdes presentes da imagem Syngenta.bmp
+
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.*;
+
+public class ContaPixels {
+	public static void main(String[] args) {
+		new ContaPixels().carregar();
+	}
+
+	public void carregar() {
+		BufferedImage imagem = null;
+
+		try {
+			imagem = ImageIO.read(getClass().getResourceAsStream("img/Syngenta.bmp"));
+			// Carrega a imagem para o código.
+
+			int w = imagem.getWidth();
+			int h = imagem.getHeight();
+			int contaVerde = 0;
+
+			System.out.println();
+
+			for (int x = 0; x < w; x++) {
+				for (int y = 0; y < h; y++) {
+					
+					//Pegando o RGB do Pixel de coordenada x,y e alocando em uma variável.
+					int pixel = imagem.getRGB(x, y); 
+					
+					System.out.println(pixel);
+					
+
+					//Criando objeto do tipo Color a partir do valor RGB alocado em pixel.
+					Color color = new Color(pixel, true); 
+					
+					//Inserindo valores RGB de color em variáveis, separando por cor.
+					int vermelho = color.getRed();
+					int verde = color.getGreen();
+					int azul = color.getBlue();
+
+					if (verde > vermelho && verde > azul) {
+						contaVerde++;
+					}
+				}
+			}
+			System.out.printf("Há %d pixels verdes na imagem", contaVerde);
+
+		}catch (IOException exc) {
+			exc.printStackTrace();
+		}
+	}
+}

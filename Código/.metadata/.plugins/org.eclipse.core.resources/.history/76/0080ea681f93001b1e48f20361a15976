@@ -1,0 +1,49 @@
+package Pixels;
+
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.*;
+
+public class ContaPixels {
+	public static void main(String[] args) {
+		new ContaPixels().carregar();
+	}
+
+	public void carregar() {
+		BufferedImage imagem = null;
+
+		try {
+				imagem = ImageIO.read(getClass().getResourceAsStream("img/Syngenta.bmp"));
+				// Carrega a imagem para o código.
+
+			int w = imagem.getWidth();
+			int h = imagem.getHeight();
+			int contaVerde = 0;
+
+
+			System.out.println();
+
+			for (int x = 0; x < w; x++) {
+				for (int y = 0; y < h; y++) {
+
+					int pixel = imagem.getRGB(x,y);
+
+					Color color = new Color(pixel, true);
+
+					int red = color.getRed();
+					int green = color.getGreen();
+					int blue = color.getBlue();
+
+					if (green > red && green > blue ){
+						contaVerde++;
+					}
+				}
+			}
+			System.out.printf("Há %d pixels verdes na imagem",contaVerde);
+
+		} catch (IOException exc) {
+			exc.printStackTrace();
+		}
+	}
+}
